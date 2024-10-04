@@ -2,6 +2,8 @@ import express from "express";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
+import authRoutes from "./routes/authRoute.js";
+import userRoutes from "./routes/userRoute.js";
 dotenv.config();
 
 const app = express();
@@ -20,6 +22,8 @@ mongoose
     console.log("Connection failed");
   });
 
+app.use("/api/auth", authRoutes);
+app.use("/api/user", userRoutes);
 app.use((err, req, res, next) => {
   const statusCode = err.statusCode || 500;
   const message = err.message || "Internal Server Error";

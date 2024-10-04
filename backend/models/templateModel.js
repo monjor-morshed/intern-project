@@ -4,7 +4,7 @@ const TemplateSchema = new Schema(
     title: { type: String, required: true },
     description: { type: String, required: true },
     topic: { type: String, required: true },
-    imageUrl: { type: String }, // Optional field for image/illustration URL
+    imageUrl: { type: String },
     tags: [{ type: Schema.Types.ObjectId, ref: "Tag" }],
     creator: { type: Schema.Types.ObjectId, ref: "User", required: true },
     access: {
@@ -12,12 +12,12 @@ const TemplateSchema = new Schema(
       enum: ["public", "private"],
       default: "public",
     },
-    selectedUsers: [{ type: Schema.Types.ObjectId, ref: "User" }], // Optional for private templates
+    selectedUsers: [{ type: Schema.Types.ObjectId, ref: "User" }],
     fields: [
       {
         title: { type: String, required: true },
         description: { type: String },
-        displayInTable: { type: Boolean, default: false }, // If true, show in filled form table
+        displayInTable: { type: Boolean, default: false },
       },
     ],
     comments: [{ type: Schema.Types.ObjectId, ref: "Comment" }],

@@ -3,6 +3,7 @@ const LikeSchema = new Schema(
   {
     user: { type: Schema.Types.ObjectId, ref: "User", required: true },
     template: { type: Schema.Types.ObjectId, ref: "Template", required: true },
+    numberOfLikes: { type: Number, default: 0 },
   },
   { timestamps: true }
 );
