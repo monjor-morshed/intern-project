@@ -1,10 +1,12 @@
 import mongoose from "mongoose";
+const { Schema } = mongoose;
 const TemplateSchema = new Schema(
   {
     title: { type: String, required: true },
     description: { type: String, required: true },
     topic: { type: String, required: true },
     imageUrl: { type: String },
+    slug: { type: String, required: true, unique: true },
     tags: [{ type: Schema.Types.ObjectId, ref: "Tag" }],
     creator: { type: Schema.Types.ObjectId, ref: "User", required: true },
     access: {

@@ -1,16 +1,126 @@
 import bcryptjs from "bcryptjs";
 import { errorHandler } from "../utils/error.js";
 import User from "../models/userModel.js";
-export const test = (req, res) => {
-  res.json({ message: "User controller works" });
+import Template from "../models/templateModel.js";
+
+export const deleteUser = async (req, res, next) => {
+  try {
+    if (!req.params.id) {
+      return next(errorHandler(404, "User not found"));
+    }
+    if (req.params.id !== req.user.id && !req.user.isAdmin) {
+      return next(errorHandler(403, "Unauthorized"));
+    }
+    await User.findByIdAndDelete(req.params.id);
+    res.status(200).json({ message: "User deleted successfully" });
+  } catch (error) {
+    return next(error);
+  }
 };
 
-export const signout = (req, res, next) => {
+export const getUsers = async (req, res, next) => {
+  if (!req.user.isAdmin) {
+    return next(errorHandler(403, "You are not authorized to view users"));
+  }
   try {
-    res
-      .clearCookie("access_token")
-      .status(200)
-      .json({ message: "Signout successful" });
+    const users = await User.find();
+    res.status(200).json(users);
+  } catch (error) {
+    return next(error);
+  }
+};
+
+export const getUser = async (req, res, next) => {
+  try {
+    const user = await User.findById(req.params.userId);
+    if (!user) {
+      return next(errorHandler(404, "User not found"));
+    }
+    const { password, ...rest } = user._doc;
+    res.status(200).json(rest);
+  } catch (error) {
+    return next(error);
+  }
+};
+
+export const blockUser = async (req, res, next) => {
+  try {
+    if (!req.user.isAdmin) {
+      return next(errorHandler(403, "Only admins can block users"));
+    }
+    if (!req.params.id) {
+      return next(errorHandler(404, "User not found"));
+    }
+    if (req.params.id === req.user.id) {
+      return next(errorHandler(403, "You cannot block yourself"));
+    }
+    const user = await User.findById(req.params.id);
+    if (!user) {
+      return next(errorHandler(404, "User not found"));
+    }
+    user.isBlocked = true;
+    await user.save();
+    res.status(200).json({ message: "User blocked successfully" });
+  } catch (error) {
+    return next(error);
+  }
+};
+
+export const unblockUser = async (req, res, next) => {
+  try {
+    if (!req.user.isAdmin) {
+      return next(errorHandler(403, "Only admins can unblock users"));
+    }
+    if (!req.params.id) {
+      return next(errorHandler(404, "User not found"));
+    }
+    const user = await User.findById(req.params.id);
+    if (!user) {
+      return next(errorHandler(404, "User not found"));
+    }
+    user.isBlocked = false;
+    await user.save();
+    res.status(200).json({ message: "User unblocked successfully" });
+  } catch (error) {
+    return next(error);
+  }
+};
+
+export const addAdmin = async (req, res, next) => {
+  try {
+    if (!req.user.isAdmin) {
+      return next(errorHandler(403, "Only admins can add admins"));
+    }
+    if (!req.params.id) {
+      return next(errorHandler(404, "User not found"));
+    }
+    const user = await User.findById(req.params.id);
+    if (!user) {
+      return next(errorHandler(404, "User not found"));
+    }
+    user.isAdmin = true;
+    await user.save();
+    res.status(200).json({ message: "Admin added successfully" });
+  } catch (error) {
+    return next(error);
+  }
+};
+
+export const removeAdmin = async (req, res, next) => {
+  try {
+    if (!req.user.isAdmin) {
+      return next(errorHandler(403, "Only admins can remove admins"));
+    }
+    if (!req.params.id) {
+      return next(errorHandler(404, "User not found"));
+    }
+    const user = await User.findById(req.params.id);
+    if (!user) {
+      return next(errorHandler(404, "User not found"));
+    }
+    user.isAdmin = false;
+    await user.save();
+    res.status(200).json({ message: "Admin removed successfully" });
   } catch (error) {
     return next(error);
   }

@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+const { Schema } = mongoose;
 const FilledFormSchema = new Schema(
   {
     template: { type: Schema.Types.ObjectId, ref: "Template", required: true },
@@ -9,6 +10,7 @@ const FilledFormSchema = new Schema(
         answer: { type: Schema.Types.Mixed, required: true },
       },
     ],
+    slug: { type: String, required: true, unique: true },
   },
   { timestamps: true }
 );

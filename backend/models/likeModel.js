@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+const { Schema } = mongoose;
 const LikeSchema = new Schema(
   {
     user: { type: Schema.Types.ObjectId, ref: "User", required: true },

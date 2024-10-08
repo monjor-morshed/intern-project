@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+const { Schema } = mongoose;
 const CommentSchema = new Schema(
   {
     template: { type: Schema.Types.ObjectId, ref: "Template", required: true },

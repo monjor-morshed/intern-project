@@ -2,6 +2,9 @@ import User from "../models/userModel.js";
 import bcryptjs from "bcryptjs";
 import jwt from "jsonwebtoken";
 import { errorHandler } from "../utils/error.js";
+export const test = (req, res) => {
+  res.json({ message: "User controller works" });
+};
 
 export const signup = async (req, res, next) => {
   const { username, email, password } = req.body;
@@ -62,5 +65,15 @@ export const login = async (req, res, next) => {
       .json(rest);
   } catch (error) {
     next(error);
+  }
+};
+export const signout = (req, res, next) => {
+  try {
+    res
+      .clearCookie("access_token")
+      .status(200)
+      .json({ message: "Signout successful" });
+  } catch (error) {
+    return next(error);
   }
 };
