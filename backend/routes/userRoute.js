@@ -16,12 +16,12 @@ import {
 
 const router = express.Router();
 
-router.delete("/delete/:id", verifyAdminOrOwner, deleteUser);
+router.delete("/delete/:userId", verifyAdminOrOwner, deleteUser);
 router.get("/", verifyAdmin, getUsers);
-router.get("/:id", verifyUser, getUser);
-router.post("/block/:id", verifyAdmin, blockUser);
-router.post("/unblock/:id", verifyAdmin, unblockUser);
-router.post("/add-admin/:id", verifyAdmin, addAdmin);
-router.post("/remove-admin/:id", verifyAdmin, removeAdmin);
+router.get("/:userId", verifyUser, getUser);
+router.post("/block/:userId", verifyAdmin, blockUser);
+router.post("/unblock/:userId", verifyAdmin, unblockUser);
+router.post("/add-admin/:userId", verifyAdmin, addAdmin);
+router.post("/remove-admin/:userId", verifyAdmin, removeAdmin);
 
 export default router;

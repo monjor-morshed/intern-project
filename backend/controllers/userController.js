@@ -5,13 +5,13 @@ import Template from "../models/templateModel.js";
 
 export const deleteUser = async (req, res, next) => {
   try {
-    if (!req.params.id) {
+    if (!req.params.userId) {
       return next(errorHandler(404, "User not found"));
     }
-    if (req.params.id !== req.user.id && !req.user.isAdmin) {
+    if (req.params.userId !== req.user.userId && !req.user.isAdmin) {
       return next(errorHandler(403, "Unauthorized"));
     }
-    await User.findByIdAndDelete(req.params.id);
+    await User.findByIdAndDelete(req.params.userId);
     res.status(200).json({ message: "User deleted successfully" });
   } catch (error) {
     return next(error);
@@ -48,13 +48,13 @@ export const blockUser = async (req, res, next) => {
     if (!req.user.isAdmin) {
       return next(errorHandler(403, "Only admins can block users"));
     }
-    if (!req.params.id) {
+    if (!req.params.userId) {
       return next(errorHandler(404, "User not found"));
     }
-    if (req.params.id === req.user.id) {
+    if (req.params.userId === req.user.userId) {
       return next(errorHandler(403, "You cannot block yourself"));
     }
-    const user = await User.findById(req.params.id);
+    const user = await User.findById(req.params.userId);
     if (!user) {
       return next(errorHandler(404, "User not found"));
     }
@@ -71,10 +71,10 @@ export const unblockUser = async (req, res, next) => {
     if (!req.user.isAdmin) {
       return next(errorHandler(403, "Only admins can unblock users"));
     }
-    if (!req.params.id) {
+    if (!req.params.userId) {
       return next(errorHandler(404, "User not found"));
     }
-    const user = await User.findById(req.params.id);
+    const user = await User.findById(req.params.userId);
     if (!user) {
       return next(errorHandler(404, "User not found"));
     }
@@ -91,10 +91,10 @@ export const addAdmin = async (req, res, next) => {
     if (!req.user.isAdmin) {
       return next(errorHandler(403, "Only admins can add admins"));
     }
-    if (!req.params.id) {
+    if (!req.params.userId) {
       return next(errorHandler(404, "User not found"));
     }
-    const user = await User.findById(req.params.id);
+    const user = await User.findById(req.params.userId);
     if (!user) {
       return next(errorHandler(404, "User not found"));
     }
@@ -111,10 +111,10 @@ export const removeAdmin = async (req, res, next) => {
     if (!req.user.isAdmin) {
       return next(errorHandler(403, "Only admins can remove admins"));
     }
-    if (!req.params.id) {
+    if (!req.params.userId) {
       return next(errorHandler(404, "User not found"));
     }
-    const user = await User.findById(req.params.id);
+    const user = await User.findById(req.params.userId);
     if (!user) {
       return next(errorHandler(404, "User not found"));
     }
