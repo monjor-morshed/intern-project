@@ -1,12 +1,17 @@
 import mongoose from "mongoose";
 const { Schema } = mongoose;
+
 const FilledFormSchema = new Schema(
   {
     template: { type: Schema.Types.ObjectId, ref: "Template", required: true },
     filledBy: { type: Schema.Types.ObjectId, ref: "User", required: true },
     answers: [
       {
-        question: { type: String, required: true },
+        question: {
+          type: Schema.Types.ObjectId,
+          ref: "Question",
+          required: true,
+        },
         answer: { type: Schema.Types.Mixed, required: true },
       },
     ],
@@ -16,5 +21,4 @@ const FilledFormSchema = new Schema(
 );
 
 const FilledForm = mongoose.model("FilledForm", FilledFormSchema);
-
 export default FilledForm;
