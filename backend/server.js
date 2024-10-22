@@ -5,6 +5,8 @@ import cookieParser from "cookie-parser";
 import authRoutes from "./routes/authRoute.js";
 import userRoutes from "./routes/userRoute.js";
 import templateRoutes from "./routes/templateRoute.js";
+import fillFormsRoutes from "./routes/fillFormsRoute.js";
+import tagRoutes from "./routes/tagRoute.js";
 dotenv.config();
 
 const app = express();
