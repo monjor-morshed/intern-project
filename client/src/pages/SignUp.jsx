@@ -1,7 +1,6 @@
 import { Label, TextInput, Button, Alert, Spinner } from "flowbite-react";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import OAuth from "../components/OAuth";
 
 const SignUp = () => {
   const [formData, setFormData] = useState({});
@@ -17,15 +16,11 @@ const SignUp = () => {
     if (!username || !email || !password) {
       return "Please fill all the fields.";
     }
-    if (username.length < 7 || username.length > 20) {
-      return "Username must be between 7 and 20 characters.";
-    }
+
     if (username.includes(" ")) {
       return "Username cannot contain spaces.";
     }
-    if (username !== username.toLowerCase()) {
-      return "Username must be lowercase.";
-    }
+
     if (!username.match(/^[a-z0-9]+$/)) {
       return "Username must be alphanumeric.";
     }
@@ -71,13 +66,13 @@ const SignUp = () => {
         <div className="flex-1">
           <Link to="/" className="font-bold dark:text-white text-4xl">
             <span className="px-2 py-1 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 rounded-lg text-white">
-              Blog
+              Form
             </span>
             App
           </Link>
           <p className="text-sm mt-5">
-            This is a blog app where you can share your thoughts and ideas with
-            the world. Sign up now to start sharing. 🚀
+            A simple form builder app for creating and sharing forms. Sign in to
+            create your own forms.
           </p>
         </div>
         {/* right side */}
@@ -124,7 +119,6 @@ const SignUp = () => {
                 "Sign Up"
               )}
             </Button>
-            <OAuth />
           </form>
           <div className="flex gap-2 text-sm mt-5">
             <span>Already have an account? </span>

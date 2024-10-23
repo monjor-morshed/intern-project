@@ -7,7 +7,6 @@ import {
   signInFailure,
 } from "../redux/user/userSlice.js";
 import { useDispatch, useSelector } from "react-redux";
-import OAuth from "../components/OAuth";
 
 const SignIn = () => {
   const [formData, setFormData] = useState({});
@@ -24,7 +23,7 @@ const SignIn = () => {
     }
     try {
       dispatch(signInStart());
-      const res = await fetch("/api/auth/signin", {
+      const res = await fetch("/api/auth/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -49,13 +48,13 @@ const SignIn = () => {
         <div className="flex-1">
           <Link to="/" className="font-bold dark:text-white text-4xl">
             <span className="px-2 py-1 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 rounded-lg text-white">
-              Blog
+              Form
             </span>
             App
           </Link>
           <p className="text-sm mt-5">
-            This is a blog app where you can share your thoughts and ideas with
-            the world. Sign in now to start sharing. 🚀
+            A simple form builder app for creating and sharing forms. Sign in to
+            create your own forms.
           </p>
         </div>
 
@@ -93,17 +92,18 @@ const SignIn = () => {
                 "Sign In"
               )}
             </Button>
-            <OAuth />
           </form>
           <div className="flex gap-2 text-sm mt-5">
-            <span>Dont Have an account?</span>
+            <span>Don&apos;t Have an account?</span>
             <Link to="/sign-up" className="text-blue-500">
               Sign Up
             </Link>
           </div>
           {errorMessage && (
             <Alert className="mt-5" color="failure">
-              {errorMessage}
+              {typeof errorMessage === "string"
+                ? errorMessage
+                : errorMessage.message || "An error occurred."}
             </Alert>
           )}
         </div>
