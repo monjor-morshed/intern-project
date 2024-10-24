@@ -41,6 +41,7 @@ const SignIn = () => {
       }
     } catch (error) {
       dispatch(signInFailure(error.message));
+      return;
     }
   };
   return (
@@ -84,14 +85,7 @@ const SignIn = () => {
               type="submit"
               disabled={loading}
             >
-              {loading ? (
-                <>
-                  <Spinner size="sm" />
-                  <span className="pl-3">Loading...</span>
-                </>
-              ) : (
-                "Sign In"
-              )}
+              Sign in
             </Button>
           </form>
           <div className="flex gap-2 text-sm mt-5">
