@@ -36,7 +36,7 @@ const SignIn = () => {
         return;
       }
       dispatch(signInSuccess(data));
-      navigate("/");
+      navigate("/create-template");
     } catch (error) {
       dispatch(signInFailure(error));
       return;
@@ -81,9 +81,16 @@ const SignIn = () => {
             <Button
               gradientDuoTone="purpleToPink"
               type="submit"
-              disabled={loading}
+              // disabled={loading}
             >
-              {loading ? "Loading..." : "Sign In"}
+              {loading ? (
+                <>
+                  <Spinner size="sm" />
+                  <span className="pl-3">Loading</span>
+                </>
+              ) : (
+                "Sign In"
+              )}
             </Button>
           </form>
           <div className="flex gap-2 text-sm mt-5">

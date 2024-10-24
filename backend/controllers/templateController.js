@@ -93,7 +93,6 @@ export const getAllTemplates = async (req, res, next) => {
     return next(error);
   }
 };
-
 export const getTemplateById = async (req, res, next) => {
   try {
     const template = await Template.findById(req.params.templateId)

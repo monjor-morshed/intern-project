@@ -3,44 +3,34 @@ import Home from "./pages/Home";
 
 import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp";
-import Dashboard from "./pages/Dashboard";
-// import Projects from "./pages/Projects";
+
 import Header from "./components/Header";
-// import Footer from "./components/Footer";
 import PrivateRoute from "./components/PrivateRoute";
 import Templates from "./pages/Templates";
-
-// import CreatePost from "./pages/CreatePost";
-import OnlyAdminPrivateRoute from "./components/OnlyAdminPrivateRoute";
-// import UpdatePost from "./pages/UpdatePost";
-// import PostPage from "./pages/PostPage";
-// import ScrollToTop from "./components/ScrollToTop";
+import CreateTemplate from "./pages/CreateTemplate";
+import UserProfile from "./pages/UserProfile";
+// import OnlyAdminPrivateRoute from "./components/OnlyAdminPrivateRoute";
+import ScrollToTop from "./components/ScrollToTop";
 const App = () => {
   return (
     <div>
-      {/* <ScrollToTop /> */}
+      <ScrollToTop />
       <Header />
       <Routes>
         <Route path="/" element={<Home />} />
-        {/* <Route path="/about" element={<About />} /> */}
+
         <Route path="/sign-in" element={<SignIn />} />
         <Route path="/sign-up" element={<SignUp />} />
         <Route element={<PrivateRoute />}>
-          <Route path="/dashboard" element={<Dashboard />} />
-        </Route>
-        <Route element={<OnlyAdminPrivateRoute />}>
           <Route path="/templates" element={<Templates />} />
         </Route>
-        {/* <Route path="/projects" element={<Projects />} /> */}
-        {/* <Route element={<OnlyAdminPrivateRoute />}>
-          <Route path="/create-post" element={<CreatePost />} />
+        <Route element={<PrivateRoute />}>
+          <Route path="/create-template" element={<CreateTemplate />} />
         </Route>
-        <Route element={<OnlyAdminPrivateRoute />}>
-          <Route path="/update-post/:postId" element={<UpdatePost />} />
-        </Route> */}
-        {/* <Route path="/post/:postSlug" element={<PostPage />} /> */}
+        <Route element={<PrivateRoute />}>
+          <Route path="/profile" element={<UserProfile />} />
+        </Route>
       </Routes>
-      {/* <Footer /> */}
     </div>
   );
 };
