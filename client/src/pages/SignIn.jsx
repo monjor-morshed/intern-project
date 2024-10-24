@@ -32,15 +32,14 @@ const SignIn = () => {
       });
       const data = await res.json();
       if (data.error) {
-        dispatch(signInFailure(data.message));
+        dispatch(signInFailure(data));
         return;
       }
-      if (res.ok) {
-        dispatch(signInSuccess(data));
-        navigate("/");
-      }
+
+      dispatch(signInSuccess(data));
+      navigate("/");
     } catch (error) {
-      dispatch(signInFailure(error.message));
+      dispatch(signInFailure(error));
       return;
     }
   };
@@ -83,9 +82,16 @@ const SignIn = () => {
             <Button
               gradientDuoTone="purpleToPink"
               type="submit"
-              // disabled={loading}
+              disabled={loading}
             >
-              Sign in
+              {loading ? (
+                <>
+                  <Spinner size="sm" />
+                  <span className="pl-3">Loading...</span>
+                </>
+              ) : (
+                "Sign In"
+              )}
             </Button>
           </form>
           <div className="flex gap-2 text-sm mt-5">
