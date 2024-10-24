@@ -8,8 +8,10 @@ import Dashboard from "./pages/Dashboard";
 import Header from "./components/Header";
 // import Footer from "./components/Footer";
 import PrivateRoute from "./components/PrivateRoute";
+import Templates from "./pages/Templates";
+
 // import CreatePost from "./pages/CreatePost";
-// import OnlyAdminPrivateRoute from "./components/OnlyAdminPrivateRoute";
+import OnlyAdminPrivateRoute from "./components/OnlyAdminPrivateRoute";
 // import UpdatePost from "./pages/UpdatePost";
 // import PostPage from "./pages/PostPage";
 // import ScrollToTop from "./components/ScrollToTop";
@@ -25,6 +27,9 @@ const App = () => {
         <Route path="/sign-up" element={<SignUp />} />
         <Route element={<PrivateRoute />}>
           <Route path="/dashboard" element={<Dashboard />} />
+        </Route>
+        <Route element={<OnlyAdminPrivateRoute />}>
+          <Route path="/templates" element={<Templates />} />
         </Route>
         {/* <Route path="/projects" element={<Projects />} /> */}
         {/* <Route element={<OnlyAdminPrivateRoute />}>

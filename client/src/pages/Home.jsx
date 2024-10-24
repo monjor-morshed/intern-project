@@ -56,6 +56,11 @@ const Home = () => {
     });
   };
 
+  const handleDeleteQuestion = (index) => {
+    const updatedQuestions = formData.questions.filter((_, i) => i !== index);
+    setFormData({ ...formData, questions: updatedQuestions });
+  };
+
   const validateInput = () => {
     const { title, description, topic, questions } = formData;
 
@@ -206,6 +211,12 @@ const Home = () => {
                     />
                   </div>
                 )}
+                <Button
+                  color="failure"
+                  onClick={() => handleDeleteQuestion(index)}
+                >
+                  Delete Question
+                </Button>
               </div>
             ))}
             <Button onClick={handleAddQuestion}>Add Another Question</Button>

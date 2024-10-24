@@ -7,6 +7,7 @@ import userRoutes from "./routes/userRoute.js";
 import templateRoutes from "./routes/templateRoute.js";
 import fillFormsRoutes from "./routes/fillFormsRoute.js";
 import tagRoutes from "./routes/tagRoute.js";
+import path from "path";
 dotenv.config();
 
 const app = express();
@@ -25,11 +26,18 @@ mongoose
     console.log("Connection failed");
   });
 
+const __dirname = path.resolve();
+
 app.use("/api/auth", authRoutes);
 app.use("/api/user", userRoutes);
 app.use("/api/template", templateRoutes);
 app.use("/api/filled-form", fillFormsRoutes);
 app.use("/api/tag", tagRoutes);
+app.use(express.static(path.join(__dirname, "/client/dist")));
+
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "client", "dist", "index.html"));
+});
 app.use((err, req, res, next) => {
   const statusCode = err.statusCode || 500;
   const message = err.message || "Internal Server Error";

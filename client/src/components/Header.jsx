@@ -60,12 +60,6 @@ const Header = () => {
             {theme === "dark" ? <FaMoon /> : <FaSun />}
           </Button>
           {currentUser ? (
-            <Link to="/sign-in">
-              <Button gradientDuoTone="purpleToBlue" outline>
-                Sign In
-              </Button>
-            </Link>
-          ) : (
             <Dropdown
               arrowIcon={false}
               inline
@@ -86,6 +80,12 @@ const Header = () => {
               <Dropdown.Divider />
               <Dropdown.Item onClick={handleSignout}>Sign Out</Dropdown.Item>
             </Dropdown>
+          ) : (
+            <Link to="/sign-in">
+              <Button gradientDuoTone="purpleToBlue" outline>
+                Sign In
+              </Button>
+            </Link>
           )}
           <Navbar.Toggle />
         </div>
