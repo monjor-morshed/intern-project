@@ -31,11 +31,10 @@ const SignIn = () => {
         body: JSON.stringify(formData),
       });
       const data = await res.json();
-      if (data.error) {
-        dispatch(signInFailure(data));
+      if (!res.ok) {
+        dispatch(signInFailure(data.message || "Login failed."));
         return;
       }
-
       dispatch(signInSuccess(data));
       navigate("/");
     } catch (error) {
@@ -87,7 +86,7 @@ const SignIn = () => {
               {loading ? (
                 <>
                   <Spinner size="sm" />
-                  <span className="pl-3">Loading...</span>
+                  <span className="pl-3">Loading</span>
                 </>
               ) : (
                 "Sign In"
